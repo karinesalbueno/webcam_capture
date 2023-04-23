@@ -24,7 +24,7 @@ function App() {
 
       <div className='buttons'>
         <button onClick={() => capture()}>Tirar foto</button>
-        <button onClick={() => { '' }}>Gravar vídeo</button>
+        <button onClick={() => { '' }} style={{cursor: 'not-allowed'}}>Gravar vídeo</button>
       </div>
 
       {
