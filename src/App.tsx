@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import Webcam from "react-webcam";
 import './App.css'
 
@@ -6,23 +6,35 @@ function App() {
   const ref = React.useRef() as React.MutableRefObject<Webcam>;
   const [photoCapture, setPhotoCapture] = useState<string | undefined>();
 
-  const capture = useCallback(() => {
+  const capture = () => {
     const makeScreenshot = ref.current.getScreenshot();
     if (makeScreenshot)
       setPhotoCapture(makeScreenshot)
-  }, [])
+  }
 
   return (
-    <>
-      <img src={photoCapture} alt="foto" />
+    <div className='container'>
+
       <Webcam
-        //espelhar imagem
-        mirrored={true}
+        mirrored={true} //espelhar imagem
         screenshotFormat="image/jpeg"
         ref={ref}
+        className='webcam'
       />
-      <button onClick={capture}>Tirar foto</button>
-    </>
+
+      <div className='buttons'>
+        <button onClick={() => capture()}>Tirar foto</button>
+        <button onClick={() => { '' }}>Gravar vídeo</button>
+      </div>
+
+      {
+        photoCapture ?
+          <img src={photoCapture} alt="foto" />
+          :
+          <small>Sua foto ou vídeo serão exibidos aqui! Vamos lá?</small>
+      }
+
+    </div>
   )
 }
 
